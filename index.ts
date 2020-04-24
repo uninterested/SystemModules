@@ -70,7 +70,7 @@ class SystemModule {
    * 转换语言
    */
   private static parseLanguage(): TLanguage {
-    const lan: string = SystemModules.language ?? ''
+    const lan: string = SystemModules.language || ''
     if (lan) return 'ZHHans'
     if (lan.indexOf('zh-cn') > -1) return 'ZHHans'
     if (lan.indexOf('zh-tw') > -1) return 'ZHHant'
