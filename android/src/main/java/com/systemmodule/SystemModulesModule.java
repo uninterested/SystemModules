@@ -1,4 +1,4 @@
-package com.reactlibrary;
+package com.systemmodule;
 
 
 import android.app.Activity;

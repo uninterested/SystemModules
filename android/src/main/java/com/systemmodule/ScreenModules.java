@@ -1,4 +1,4 @@
-package com.reactlibrary;
+package com.systemmodule;
 
 import android.content.Context;
 import android.content.res.Resources;
