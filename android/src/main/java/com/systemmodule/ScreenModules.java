@@ -19,8 +19,8 @@ public class ScreenModules {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("safeTop", safeTop / dm.density);
         hashMap.put("safeBottom", safeBottom / dm.density);
-        hashMap.put("width", dm.heightPixels * 1.0f / dm.density);
-        hashMap.put("height", dm.widthPixels * 1.0f / dm.density);
+        hashMap.put("width", dm.widthPixels * 1.0f / dm.density);
+        hashMap.put("height", dm.heightPixels * 1.0f / dm.density);
         return hashMap;
     }
 
