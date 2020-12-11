@@ -5,9 +5,11 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 
 public class ScreenModules {
@@ -63,7 +65,29 @@ public class ScreenModules {
     }
 
     private boolean isNavigationBarShown(Context context) {
-        int id = context.getResources().getIdentifier("config_showNavigationBar", "bool", "android");
-        return !(id > 0 && context.getResources().getBoolean(id));
+        Resources res = context.getResources();
+        int id = res.getIdentifier("config_showNavigationBar", "bool", "android");
+        if (id != 0) {
+            boolean has = res.getBoolean(id);
+            String s = getNavBarOverride();
+            if ("1".equals(s)) has = false;
+            else if ("0".equals(s)) has = true;
+            return has;
+        }
+        return false;
+    }
+
+    private static String getNavBarOverride() {
+        String sNavBarOverride = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            try {
+                Class c = Class.forName("android.os.SystemProperties");
+                Method m = c.getDeclaredMethod("get", String.class);
+                m.setAccessible(true);
+                sNavBarOverride = (String) m.invoke(null, "qemu.hw.mainkeys");
+            } catch (Throwable e) {
+            }
+        }
+        return sNavBarOverride;
     }
 }
